@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- FPGA Top Module for Key Generator
--- Target: Basys3 / Nexys A7 / Arty A7 Boards
+-- Target: Nexys A7
 -- 
 -- Description: Top-level wrapper for FPGA implementation
 --              Maps board buttons, switches, and LEDs to key generation module
