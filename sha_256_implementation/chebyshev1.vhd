@@ -1,16 +1,16 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: The University of Southern Mississippi
+-- Engineer: Samir Bhattarai
 -- 
 -- Create Date: 06/23/2025 01:32:35 PM
 -- Design Name: 
 -- Module Name: generate_key - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
+-- Project Name: FPGA-based Key Generation for Drones
+-- Target Devices: Xilinx Artix-7
+-- Tool Versions: Vivado 2024.1
+-- Description:
 -- 
--- Dependencies: 
+-- Dependencies: Numeric_STD, STD_LOGIC_1164, Sha_256_pkg, Key_Matrix_pkg, 
 -- 
 -- Revision:
 -- Revision 0.01 - File Created
@@ -50,6 +50,7 @@ architecture Behavioral of chebyshev1 is
     -- x_in is treated as an integer value (not scaled by 1000)
     -- Results are also integers (not scaled)
     function chebyshev_iterative(x_in: integer; n_in: integer) return integer is
+        constant MAX_N : integer := 32;     -- Maximum supported polynomial degree
         variable T0 : integer := 1;         -- T0(x) = 1
         variable T1 : integer := x_in;      -- T1(x) = x
         variable Tn : integer := 0;
@@ -61,7 +62,8 @@ architecture Behavioral of chebyshev1 is
         else
             -- Recurrence: T_n(x) = 2x·T_{n-1}(x) - T_{n-2}(x)
             -- For integer inputs (no scaling needed)
-            for idx in 2 to n_in loop
+            for idx in 2 to MAX_N loop
+                exit when idx > n_in;
                 Tn := 2 * x_in * T1 - T0;
                 T0 := T1;
                 T1 := Tn;

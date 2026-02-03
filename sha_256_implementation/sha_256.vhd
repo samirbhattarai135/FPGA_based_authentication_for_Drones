@@ -1,16 +1,16 @@
 
--- Company: 
--- Engineer: 
+-- Company: The University of Southern Mississippi
+-- Engineer: Samir Bhattarai
 -- 
 -- Create Date: 06/23/2025 01:32:35 PM
--- Design Name: 
+-- Design Name: FPGA-based Key Generation for Drones
 -- Module Name: generate_key - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
+-- Project Name: FPGA-based Key Generation for Drones
+-- Target Devices: Xilinx Artix-7
+-- Tool Versions: Vivado 2024.1
+-- Description: SHA-256 hash function implementation for FPGA-based key generation
 -- 
--- Dependencies: 
+-- Dependencies: Numeric_STD, STD_LOGIC_1164, Sha_256_pkg
 -- 
 -- Revision:
 -- Revision 0.01 - File Created

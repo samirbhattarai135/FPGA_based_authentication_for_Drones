@@ -1,9 +1,9 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: The University of Southern Mississippi
+-- Engineer: Samir Bhattarai
 -- 
 -- Create Date: 10/13/2025 
--- Design Name: 
+-- Design Name: FPGA-based Key Generation for Drones
 -- Module Name: top_module_matrix_streaming - Behavioral
 -- Project Name: eVTOL Key Matrix Generation - STREAMING VERSION
 -- Target Devices: Xilinx FPGA
@@ -312,9 +312,7 @@ begin
             level3_sha_started <= '0';
             level3_first_key <= '1';
             level3_counters_updated <= '0';
-            sha_input_prepared <= '0';
-            
-            
+
         elsif rising_edge(clk) then
 
             case current_state is
@@ -515,12 +513,13 @@ begin
         end if;
     end process;
    
-    -- SHA-512 input preparation
+    -- SHA-256 input preparation
     process(clk, rst)
     begin
         if rst = '1' then
             sha_data_in <= (others => '0');
             hash_input_ready <= '0';
+            sha_input_prepared <= '0';
 
         elsif rising_edge(clk) then
         
@@ -547,24 +546,5 @@ begin
             end if;
         end if;
     end process;
-
-        -- Status outputs
-    processing <= '1' when current_state /= IDLE and current_state /= COMPLETE else '0';
-    level1_done <= '1' when (current_state = LEVEL2_CHEBY_COMPUTE or 
-                             current_state = LEVEL2_ADD_RANDOM or 
-                             current_state = LEVEL2_STORE or
-                             current_state = LEVEL3_CHEBY_WAIT or
-                             current_state = LEVEL3_CHEBY_COMPUTE or
-                             current_state = LEVEL3_SHA_COMPUTE or
-                             current_state = LEVEL3_STREAM or
-                             current_state = COMPLETE) else '0';
-                             
-    level2_done <= '1' when (current_state = LEVEL3_CHEBY_WAIT or
-                             current_state = LEVEL3_CHEBY_COMPUTE or
-                             current_state = LEVEL3_SHA_COMPUTE or
-                             current_state = LEVEL3_STREAM or
-                             current_state = COMPLETE) else '0';
-                             
-    level3_done <= '1' when current_state = COMPLETE else '0';
 
 end Behavioral;
