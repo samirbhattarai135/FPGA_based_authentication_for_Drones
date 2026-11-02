@@ -14,6 +14,10 @@ The implementation provides a memory-efficient streaming architecture for genera
 - **Multiple Hash Variants**: SHA-512, SHA-256, and SHA-128 (truncated) implementations
 - **Chebyshev Chaotic Maps**: Provides unpredictable key sequences
 
+## Optimized SHA-256 version
+
+[`sha_256_optimized/`](sha_256_optimized/) restructures the SHA-256 variant: one hash round per clock, a 16-word on-the-fly message schedule, Chebyshev maps mod 2³¹−1, and two SHA cores fed round-robin while the next key's Chebyshev value is computed. It generates the 800 keys in 27,638 cycles instead of 168,011 and closes timing at 130 MHz instead of 3.4 MHz on the Artix-7, so it is **about 230× faster in wall-clock time** with a third of the LUTs. Every key is standard FIPS 180-4 SHA-256, checked against Python's `hashlib`. Details, results and the reproduction script are in its [README](sha_256_optimized/README.md).
+
 ## Project Structure
 
 ```
